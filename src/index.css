@@ -1,0 +1,26 @@
+body {
+  margin: 0;
+  background: #fee834;
+  text-align: center;
+}
+
+button {
+  font-size: 1.2rem;
+  border: 0.25rem solid black;
+  padding: 0.5rem;
+  margin: 1rem 0.5rem;
+}
+
+.game-buttons {
+  display: none;
+}
+
+.output {
+  font-size: 2rem;
+  font-weight: bold;
+  line-height: 2rem;
+}
+
+.scores {
+  display: none;
+}
