@@ -23,4 +23,34 @@ button {
 
 .scores {
   display: none;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.scores-info {
+  padding: 1rem;
+}
+
+.instructions {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  max-width: 80vw;
+  text-align: left;
+  border: solid 1px black;
+}
+
+.instructions h2 {
+  text-align: center;
+  padding: 1rem;
+}
+
+.instructions p {
+  margin-left: 2rem;
+}
+
+.home-btn a {
+  text-decoration: none;
+  color: black;
 }
