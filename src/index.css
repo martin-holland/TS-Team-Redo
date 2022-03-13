@@ -30,6 +30,10 @@ button {
 
 .scores-info {
   padding: 1rem;
+  margin-left: 0.5rem;
+  background-color: black;
+  color: white;
+  border-radius: 5px;
 }
 
 .instructions {
@@ -37,6 +41,7 @@ button {
   flex-direction: column;
   margin: auto;
   max-width: 80vw;
+  width: 50vw;
   text-align: left;
   border: solid 1px black;
 }
