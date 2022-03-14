@@ -3,10 +3,6 @@ import "./connect4.css"
 
 import Navbar from "../components/Navbar"
 
-
-
-
-
 function NewConnect4() {
 
   function loadGameState () {
