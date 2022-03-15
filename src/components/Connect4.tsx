@@ -132,7 +132,6 @@ function NewConnect4() {
 
     return (
       <>
-        <Navbar/>
         <div className="connect4-container">
             <h1 className="title">Connect Four!</h1>
             <h3 className="player">Current Player: Player <span id="current-player">1</span></h3>

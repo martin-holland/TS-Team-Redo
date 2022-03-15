@@ -6,13 +6,14 @@ import './navbar.css';
 function Navbar() {
     return (
         <>
-           <nav>
-        <ul>
-          <li><Link to='/'>Home</Link></li>
-          <li><Link to='/rockpaperscissors'>Rock Paper Scissors</Link></li>
-          <li><Link to='/connect4'>Connect 4</Link></li>
-        </ul>
-      </nav>
+          <nav>
+            <ul>
+              <li><Link to='/'>Home</Link></li>
+              <li><Link to='/rockpaperscissors'>Rock Paper Scissors</Link></li>
+              <li><Link to='/connect4'>Connect 4</Link></li>
+              <li><Link to='/memory'>Memory</Link></li>
+            </ul>
+          </nav>
         </>
     );
 }

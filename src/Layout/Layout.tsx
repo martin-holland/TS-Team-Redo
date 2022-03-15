@@ -1,12 +1,13 @@
-import React from 'react';
+import { Outlet } from "react-router-dom";
 import Navbar from '../components/Navbar';
 
 function Layout() {
     return (
-    <>        
+    <>       
+        <Navbar/> 
         <main>
-            <Navbar/>
-            <h1>Typescript Mini Games</h1>
+            <Outlet />
+            {/* <h1>Typescript Mini Games</h1> */}
         </main>
     </>
 
