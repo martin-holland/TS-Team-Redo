@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { BoardState, useGameState } from "./TicTacToeState";
+import { BoardState, useGameState, Value } from "./TicTacToeState";
 
 type LayoutProps = {
     gap: number,
@@ -30,8 +30,8 @@ function TicTacToe() {
 
 
     return (
-        <Row gap={20}>
-            <Col gap={20}>
+        <Row gap={5}>
+            <Col gap={5}>
                 <div> {
                     winner
                     ? `Winner ${winner}`
@@ -47,8 +47,7 @@ function TicTacToe() {
 type BoardProps = {
     board: BoardState,
     onClick: (square: number) => void;
-}
-
+};
 function Board({ board, onClick }: BoardProps) {
     const createProps = (square: number): SquareProps => {
       return {
@@ -57,18 +56,18 @@ function Board({ board, onClick }: BoardProps) {
       };
     };
     return (
-        <Col gap={0}>
-            <Row gap={0}>
+        <Col gap={1}>
+            <Row gap={1}>
                 <Square {...createProps(0)} />
                 <Square {...createProps(1)} />
                 <Square {...createProps(2)} />
             </Row>
-            <Row gap={0}>
+            <Row gap={1}>
                 <Square {...createProps(3)} />
                 <Square {...createProps(4)} />
                 <Square {...createProps(5)} />
             </Row>
-            <Row gap={0}>
+            <Row gap={1}>
                 <Square {...createProps(6)} />
                 <Square {...createProps(7)} />
                 <Square {...createProps(8)} />
@@ -78,19 +77,19 @@ function Board({ board, onClick }: BoardProps) {
 }
 
 const StyledSquare = styled.button`
-    width: 34px;
-    height: 34px;
+    width: 75px;
+    height: 75px;
     background: #fff;
     border: 1px solid #999;
     padding: 0;
-    font-size: 24px;
+    font-size: 36px;
     font-weight: bold;
 `;
 
 type SquareProps = {
-    value: Value,
-    onClick = () => void,
-}
+    value: Value;
+    onClick: () => void;
+  };
 
 function Square(props: SquareProps) {
     return (
