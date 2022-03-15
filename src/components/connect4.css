@@ -1,57 +1,75 @@
-.App {
-  text-align: center;
+h1,
+h2,
+h3 {
+  line-height: 1.2;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.connect4-container {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.grid-container {
+  border: solid black 1px;
 }
 
-.App-title {
-  font-size: 1.5em;
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  height: 24rem;
+  width: 28rem;
 }
 
-.App-intro {
-  font-size: large;
+.grid div {
+  height: 4rem;
+  width: 4rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.board {
-  background-image: linear-gradient(#3ca3ff, #005eb3);
-  width: 800px;
-  margin: auto;
-  padding: 8px;
-}
-
-.board > .cell {
-  width: calc(800px / 7 - 8px);
-  height: calc(800px / 7 - 8px);
-  background: white;
-  display: inline-block;
-  box-sizing: border-box;
+.possible {
+  background-color: lightgray;
   border-radius: 50%;
-  margin: 4px;
 }
 
-.board > .cell[data-player="playerOne"] {
-  background-image: linear-gradient(#ffffc9, #cece00);
+.player-one {
+  background-color: red;
+  border-radius: 50%;
 }
 
-.board > .cell[data-player="playerTwo"] {
-  background-image: linear-gradient(#fb7272, #da0000);
+.player-two {
+  background-color: blue;
+  border-radius: 50%;
+}
+
+.github-corner:hover .octo-arm {
+  animation: octocat-wave 560ms ease-in-out;
+}
+
+@keyframes octocat-wave {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  20%,
+  60% {
+    transform: rotate(-25deg);
+  }
+  40%,
+  80% {
+    transform: rotate(10deg);
+  }
+}
+
+@media (max-width: 500px) {
+  .github-corner:hover .octo-arm {
+    animation: none;
+  }
+  .github-corner .octo-arm {
+    animation: octocat-wave 560ms ease-in-out;
+  }
+}
+
+.button-container {
+  display: flex;
 }

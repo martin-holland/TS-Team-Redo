@@ -1,212 +1,152 @@
-import * as React from "react";
+import React from 'react';
 import "./connect4.css"
 
-enum Player {
-  None = 0,
-  One = 1,
-  Two = 2
-}
+import Navbar from "../components/Navbar"
 
-enum GameState {
-  Ongoing = -1,
-  Draw = 0,
-  PlayerOneWin = Player.One,
-  PlayerTwoWin = Player.Two
-}
-type Board = Player[];
+function NewConnect4() {
 
-interface State {
-  board: Board;
-  playerTurn: Player;
-  gameState: GameState | Player
-}
-
-const intitializeBoard = () => {
-  const board = [];
-  for (let i = 0; i < 42; i++) {
-    board.push(Player.None);
-  }
-  return board;
-};
-
-const getPrettyPlayer = (player: Player) => {
-  if (player === Player.None) return "noPlayer";
-  if (player === Player.One) return "playerOne";
-  if (player === Player.Two) return "playerTwo";
-};
-
-const findLowestEmptyIndex = (board: Board, column: number) => {
-  for (let i = 35 + column; i >= 0; i -= 7) {
-    if (board[i] === Player.None) return i;
-  }
-
-  return -1;
-};
-
-const togglePlayerTurn = (player: Player) => {
-  return player === Player.One ? Player.Two : Player.One;
-};
-
-const getGameState = (board: Board) => {
-  // Checks wins horizontally
-  for (let r = 0; r < 6; r++) {
-    for (let c = 0; c <= 4; c++) {
-      const index = r * 7 + c;
-      const boardSlice = board.slice(index, index + 4);
-
-      const winningResult = checkWinningSlice(boardSlice);
-      if (winningResult !== false) return winningResult;
-    }
-  }
-
-  // check wins vertically
-  for (let r = 0; r <= 2; r++) {
-    for (let c = 0; c < 7; c++) {
-      const index = r * 7 + c;
-      const boardSlice = [
-        board[index],
-        board[index + 7],
-        board[index + 7 * 2],
-        board[index + 7 * 3]
-      ];
-
-      const winningResult = checkWinningSlice(boardSlice);
-      if (winningResult !== false) return winningResult;
-    }
-  }
-
-  // check wins diagonally
-  for (let r = 0; r <= 2; r++) {
-    for (let c = 0; c < 7; c++) {
-      const index = r * 7 + c;
-
-      // Checks diagonal down-left
-      if (c >= 3) {
-        const boardSlice = [
-          board[index],
-          board[index + 7 - 1],
-          board[index + 7 * 2 - 2],
-          board[index + 7 * 3 - 3]
-        ];
-  
-        const winningResult = checkWinningSlice(boardSlice);
-        if (winningResult !== false) return winningResult;
-      } 
-
-      // Checks diagonal down-right
-      if (c <= 3) {
-        const boardSlice = [
-          board[index],
-          board[index + 7 + 1],
-          board[index + 7 * 2 + 2],
-          board[index + 7 * 3 + 3]
-        ];
-  
-        const winningResult = checkWinningSlice(boardSlice);
-        if (winningResult !== false) return winningResult;
-      }
-    }
-  }
-
-  if (board.some(cell => cell === Player.None)) {
-    return GameState.Ongoing
-  } else {
-    return GameState.Draw
-  }
-};
-
-const checkWinningSlice = (miniBoard: Player[]) => {
-  if (miniBoard.some(cell => cell === Player.None)) return false;
-
-  if (
-    miniBoard[0] === miniBoard[1] &&
-    miniBoard[1] === miniBoard[2] &&
-    miniBoard[2] === miniBoard[3]
-  ) {
-    return miniBoard[1];
-  }
-
-  return false;
-};
-
-class App extends React.Component<{}, State> {
-  state: State = {
-    board: intitializeBoard(),
-    playerTurn: Player.One,
-    gameState: GameState.Ongoing
-  };
-
-  public renderCells = () => {
-    const { board } = this.state;
-    return board.map((player, index) => this.renderCell(player, index));
-  };
-
-  public handleOnClick = (index: number) => () => {
-    const {gameState} = this.state
-
-    if (gameState !== GameState.Ongoing) return 
-    
-    const column = index % 7;
-
-    this.makeMove(column);
-  };
-
-  public makeMove(column: number) {
-    const { board, playerTurn } = this.state;
-
-    const index = findLowestEmptyIndex(board, column);
-
-    const newBoard = board.slice();
-    newBoard[index] = playerTurn;
-
-    const gameState = getGameState(newBoard);
-
-    this.setState({
-      board: newBoard,
-      playerTurn: togglePlayerTurn(playerTurn),
-      gameState
+  function loadGameState () {
+    const grid = document.querySelector('.grid');
+    const allSquares: Array<HTMLDivElement> = [];
+    const result = document.querySelector('#result');
+    const currentPlayerDisplay = document.querySelector('#current-player');
+    const resetButton = document.querySelector('#reset-button');
+    resetButton?.addEventListener('click', () => {
+        currentPlayer = 1;
+        if (currentPlayerDisplay) {
+            currentPlayerDisplay.textContent = currentPlayer.toString();
+        }
+        if (result) {
+            result.textContent = "";
+        }
+        for (let i = 0; i < 42; i++) {
+            allSquares[i].classList.remove('taken', 'possible', 'player-one', 'player-two');
+            if (i >= 35) {
+                allSquares[i].classList.add('possible');
+            }
+        }
     });
-  }
-
-  public renderCell = (player: Player, index: number) => {
-    return (
-      <div
-        className="cell"
-        key={index}
-        onClick={this.handleOnClick(index)}
-        data-player={getPrettyPlayer(player)}
-      />
-    );
-  };
-
-  public renderGameStatus = () => {
-    const { gameState } = this.state 
-
-    let text
-    if (gameState === GameState.Ongoing) {
-      text = 'Game is ongoing'
-    } else if (gameState === GameState.Draw) {
-      text = 'Game is a draw'
-    } else if (gameState === GameState.PlayerOneWin) {
-      text = 'Player one won'
-    } else if (gameState === GameState.PlayerTwoWin) {
-      text = 'Player two won'
+  
+    let currentPlayer = 1;
+  
+    const selectSquare: ((index: number) => void) = (index) => {
+        if (currentPlayer && allSquares[index + 7].classList.contains('taken')) {
+            let newClass = currentPlayer === 1 ? 'player-one' : 'player-two';
+            currentPlayer = currentPlayer === 1 ? 2 : 1;
+            if (currentPlayerDisplay) {
+                currentPlayerDisplay.textContent = currentPlayer.toString();
+            }
+            allSquares[index].classList.add('taken', newClass);
+            allSquares[index].classList.remove('possible');
+            if (allSquares[index - 7]) {
+                allSquares[index - 7].classList.add('possible');
+            }
+            checkBoard();
+        } else {
+            alert('cannot place here');
+        }
+    };
+  
+    const confirmWinner: ((checkIndices: Array<number>) => boolean) = (checkIndices) => {
+        let checkSquares = checkIndices.map((x) => allSquares[x]);
+        let isWinner = false;
+        if (checkSquares.every((square) => { return square.classList.contains('player-one'); })) {
+            if (result) {
+                result.textContent = 'Player 1 Wins!';
+            }
+            currentPlayer = 0;
+            isWinner = true;
+        } else if (checkSquares.every((square) => { return square.classList.contains('player-two'); })) {
+            if (result) {
+                result.textContent = 'Player 2 Wins!';
+            }
+            currentPlayer = 0;
+            isWinner = true;
+        }
+        return isWinner;
+    };
+  
+    const checkBoard = () => {
+        // Horizontal Win
+        for (let col = 0; col < 4; col++) {
+            for (let row = 0; row < 6; row++) {
+                let startIndex = row * 7 + col;
+                if (confirmWinner([startIndex, startIndex + 1, startIndex + 2, startIndex + 3])) {
+                    return;
+                }
+            }
+        }
+        // Vertical Win
+        for (let col = 0; col < 7; col++) {
+            for (let row = 0; row < 3; row++) {
+                let startIndex = row * 7 + col;
+                if (confirmWinner([startIndex, startIndex + 7, startIndex + 14, startIndex + 21])) {
+                    return;
+                }
+            }
+        }
+        // Top Left to Bot Right Win
+        for (let col = 0; col < 4; col++) {
+            for (let row = 0; row < 6; row++) {
+                let startIndex = row * 7 + col;
+                if (confirmWinner([startIndex, startIndex + 7 + 1, startIndex + 14 + 2, startIndex + 21 + 3])) {
+                    return;
+                }
+            }
+        }
+        // Bot Left to Top Right Win
+        for (let col = 0; col < 4; col++) {
+            for (let row = 3; row < 6; row++) {
+                let startIndex = row * 7 + col;
+                if (confirmWinner([startIndex, startIndex - 7 + 1, startIndex - 14 + 2, startIndex - 21 + 3])) {
+                    return;
+                }
+            }
+        }
+        // Check Draw
+        if (allSquares.every((square) => { return square.classList.contains('taken'); })) {
+            currentPlayer = 0;
+            if (result) {
+                result.textContent = 'It\'s a Draw!';
+            }
+        }
+    };
+  
+    for (let i = 0; i < (7 * 7); i++) {
+        let newSquare = document.createElement('div');
+        allSquares.push(newSquare);
+        grid?.appendChild(newSquare);
+  
+        if (i < 42) {
+            newSquare.onclick = () => { selectSquare(i); };
+        }
+  
+        if (i >= 42) {
+            newSquare.classList.add('taken');
+        } else if (i >= 35) {
+            newSquare.classList.add('possible');
+        }
     }
-
-    return <div>
-      {text}
-    </div>
   }
 
-  public render() {
 
     return (
-      <div className="App">
-        {this.renderGameStatus() }
-        <div className="board">{this.renderCells()}</div>
-      </div>
+      <>
+        <Navbar/>
+        <div className="connect4-container">
+            <h1 className="title">Connect Four!</h1>
+            <h3 className="player">Current Player: Player <span id="current-player">1</span></h3>
+            <h3 id="result"> </h3>
+            <div className="grid-container">
+            <div className="grid"></div>
+            </div>
+            <div className="button-container">
+            <button className="start-connect4" onClick={loadGameState}>Start</button>
+            <button id="reset-button">Reset Game</button>
+            </div>
+        </div>
+        </>
     );
-  }
 }
 
-export default App;
+export default NewConnect4;
