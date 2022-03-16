@@ -1,6 +1,4 @@
-import * as React from 'react';
 import { useState } from "react";
-import game from "./game";
 
 export type Value = 'X' | 'O' | null;
 
@@ -49,7 +47,7 @@ export function useGameState() {
             return;
         }
         const newBoardState = boardState.slice();
-        newBoardState[square] = (gameState.step %2) == 0 ? 'X' : 'O';
+        newBoardState[square] = (gameState.step %2) === 0 ? 'X' : 'O';
         history.push(newBoardState);
         setGameState({
             history: history,
