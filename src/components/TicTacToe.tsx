@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import { BoardState, useGameState, Value } from "./TicTacToeState";
+import Navbar from './Navbar'
 
 type LayoutProps = {
     gap: number,
