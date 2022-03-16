@@ -23,6 +23,7 @@ const Memory: React.FC = () => {
         setGameWon(true);
       }, 1400);
     }
+  //eslint-disable-next-line
   }, [matchedPairs])
 
 
