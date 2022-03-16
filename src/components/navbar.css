@@ -3,6 +3,8 @@ nav {
 }
 
 ul {
+  display: flex;
+  justify-content: space-evenly;
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -24,5 +26,5 @@ li a {
 
 li a:hover {
   /* background-color: #111; */
-  background-color: rgb(253, 229, 41);
+  background-color: #fee834;
 }
