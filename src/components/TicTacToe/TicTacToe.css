@@ -1,0 +1,28 @@
+h1,
+h2,
+h3 {
+  line-height: 1.2;
+}
+
+.TTT-container {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h3 {
+  margin-top: 20px;
+}
+
+.msg-container {
+  margin: 20px;
+}
+
+.button-container {
+  display: flex;
+}
+
+button .reset {
+  width: 100px;
+}

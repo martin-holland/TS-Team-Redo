@@ -6,7 +6,7 @@ import RockPaperScissors from './components/RockPaperScissors';
 import Connect4 from "./components/Connect4";
 import Memory from "./components/Memory/Memory";
 import Home from "./components/Home";
-import TicTacToe from './components/TicTacToe';
+import TicTacToe from './components/TicTacToe/TicTacToe';
 
 function App() {
   return (
