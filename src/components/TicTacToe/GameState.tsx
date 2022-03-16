@@ -22,6 +22,7 @@ function calculateWinner(boardState: BoardState) {
             return boardState[a];
         }
     }
+    if(!boardState.includes(null)) return 'Out of moves - nobody';
     return null;
 }
 
@@ -58,7 +59,7 @@ export function useGameState() {
     function jumpTo(step: number) {
         setGameState({
             history: gameState.history,
-            step,
+            step: 0,
         });
     }
 
