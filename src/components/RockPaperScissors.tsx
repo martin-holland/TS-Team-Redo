@@ -142,7 +142,6 @@ function calculateWinner(guessOne: guess, guessTwo: guess): guess {
 
   return (
       <>
-    <Navbar/>
     <div className="game-area">
         <section className="instructions">
             <h2>Rock, Paper, Scissors!</h2>
