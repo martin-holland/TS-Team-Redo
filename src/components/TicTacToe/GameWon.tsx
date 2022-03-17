@@ -1,6 +1,5 @@
 import { Popup, Overlay } from "./GameWon.styles";
 
-
 type Props = {
     close(): void;
     winner: string;

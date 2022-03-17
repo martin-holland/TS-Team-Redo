@@ -16,6 +16,12 @@ npm install
 npm start
 ```
 
+
+### Know bugs:
+
+1. Reloading the page crashes unless in root (home)
+
+
 ## Rock Paper Scissor
 
 Made by Martin https://github.com/martin-holland
@@ -26,9 +32,17 @@ Made by Martin https://github.com/martin-holland
 
 ![screenshot of Connect 4](ScreenshotConnect4.png?raw=true "screenshot of Connect 4")
 
+### Known bugs:
+
+1. Start button creates multiple game fields below the first field
+
 ## Tetris
 
 Made by Kati https://github.com/KatiRemo
+
+### Know bugs:
+
+1. Reset button on deployed version
 
 ## Memory
 
@@ -42,6 +56,11 @@ Made by Elena https://github.com/ElaFinIta
 ![screenshot of code from Memory](TakeAwayFromMemory.png?raw=true "screenshot of Memory code, bug fixes")
 
 ![screenshot of Memory card game](rerenderingProblem.png?raw=true "screenshot of Memory card game")
+
+
+### Know bugs:
+
+1. High Scores table head row out of place
 
 Acknowledgement for Memory game:
 

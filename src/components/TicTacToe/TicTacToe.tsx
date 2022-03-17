@@ -24,6 +24,8 @@ function TicTacToe() {
 
   function reset() {
       window.location.reload();
+      winner = null;
+      
   }
 
   const checkWinner = () => {
