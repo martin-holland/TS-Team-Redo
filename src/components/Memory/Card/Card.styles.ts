@@ -24,9 +24,9 @@ const sharedStyles = css`
   backface-visibility: hidden;
   cursor: pointer;
   transform-style: preserve-3d;
-  border: 3px solid black;
-  border-radius: 7%;
-  background-color: rgb(14, 14, 130);
+  border: 2px solid black;
+  border-radius: 5%;
+  background-color: rgb(46, 46, 46);
   margin: 1rem;
 `;
 

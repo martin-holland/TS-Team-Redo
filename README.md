@@ -6,7 +6,7 @@ Group project in TypeScript for Business College Helsinki
 
 - Typescript
 - React
-- styled-components for Memory game
+- styled-components and firebase for Memory game
 
 
 ## Usage
@@ -36,5 +36,17 @@ Made by Elena https://github.com/ElaFinIta
 
 ![screenshot of Memory card game](ScreenshotMemory.png?raw=true "screenshot of Memory card game")
 
-Acknowledgement: Star Wars React Memory Game with Typescript - Javascript Memory Game https://www.youtube.com/watch?v=HxmJdlX5vmc
 
+### Some things learnt about Typescript, must remember:
+
+![screenshot of code from Memory](TakeAwayFromMemory.png?raw=true "screenshot of Memory code, bug fixes")
+
+![screenshot of Memory card game](rerenderingProblem.png?raw=true "screenshot of Memory card game")
+
+Acknowledgement for Memory game:
+
+- Star Wars React Memory Game with Typescript - Javascript Memory Game https://www.youtube.com/watch?v=HxmJdlX5vmc
+
+- Margit Tennosaar's https://github.com/margittennosaar teaching at Business College Helsinki and SpeedGame project for popup/modal
+
+- Termanty repo for high scores posting to firebase https://github.com/Termanty/SpeedyBats
