@@ -26,7 +26,7 @@ const sharedStyles = css`
   transform-style: preserve-3d;
   border: 2px solid black;
   border-radius: 5%;
-  background-color: rgb(46, 46, 46);
+  background-color: #251E1E;
   margin: 1rem;
 `;
 
@@ -40,6 +40,8 @@ export const FrontImg = styled.img<Props>`
 export const BackImg = styled.img<Props>`
   ${sharedStyles}
 
+  position: absolute;
+  top: 40px;
   z-index: ${props => (props.flipped ? 1 : 2)};
   transform: ${props => (props.flipped ? 'rotateY(180deg)' : 'rotate(360deg)')};
   position: absolute;

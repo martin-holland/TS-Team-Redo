@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useGameState } from './GameState';
 import { Board } from './Board';
 import { Row, Column } from './Layout';
-import "./TicTacToe.css"
+import "./TicTacToe.css";
+import { GameWon } from './GameWon';
 
 function TicTacToe() {
     let {
@@ -15,15 +16,23 @@ function TicTacToe() {
         handleClick,
       } = useGameState();
 
-    const [showResult, setShowResult] = useState(winner);
+    const [showResult, setShowResult] = useState(false);
+
+    useEffect(() => {
+      checkWinner();
+    }, [winner])
 
   function reset() {
       window.location.reload();
   }
 
+  const checkWinner = () => {
+    if (winner) {
+      setShowResult(true);
+    }
+  }
   const closeHandler = () => {
-      setShowResult(null)
-      winner = null
+      setShowResult(false);
   };
 
   return (
@@ -43,6 +52,7 @@ function TicTacToe() {
     <div className="button-container">
             <button onClick={reset} id="reset">Reset</button>
             </div>
+            {showResult && winner && <GameWon close={closeHandler} winner={winner}/>}
     </div>
   );
 }

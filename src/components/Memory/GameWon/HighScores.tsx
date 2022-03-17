@@ -32,7 +32,7 @@ const HighScores: React.FC<Props> = ({closeScores, level, clicks}) => {
         setHighScores(data.docs.map((playerScore) => (playerScore.data().level === level ? { ...playerScore.data()} : undefined)) as Player[]);
     };
 
-    const bestPlayers = highScores.sort((a, b) => a.clicks - b.clicks).slice(0, 2).map((player, i) => (
+    const bestPlayers = highScores.sort((a, b) => a.clicks - b.clicks).slice(0, 10).map((player, i) => (
 
         <Results key={i}>
             <p>{i + 1}</p>
