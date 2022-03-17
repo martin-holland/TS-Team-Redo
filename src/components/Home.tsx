@@ -1,7 +1,14 @@
+import { Welcome } from "./Home.syles";
+
+
 const Home: React.FC = () => {
     return(
-        <p>Choose a game</p>
-
+        <>
+            <Welcome>Welcome to play and have some fun!
+            </Welcome>
+            <Welcome>Pick a game!
+            </Welcome>
+        </>
     )
 };
 

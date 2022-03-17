@@ -6,6 +6,7 @@ import { CardType } from './setup';
 import { Flex } from './Memory.styles';
 import { GameWon } from './GameWon/GameWon';
 import HighScores from './GameWon/HighScores';
+import confetti from 'canvas-confetti';
 
 
 const defaultCardAmount = 3;
@@ -36,6 +37,11 @@ const Memory: React.FC = () => {
     setTurns(turns => turns + 1);
     // Flip the card
     setCards(cards => cards.map(card => card.id === currentClickedCard.id ? {...card, flipped: true, clickable: false } : card ));
+
+    // throw confetti if it's magic
+    if (currentClickedCard.magic) {
+      confetti();
+    }
 
     // if one card is flipped, set it into hook and wait
     if (!clickedCard) {

@@ -7,6 +7,10 @@ export const Wrapper = styled.div`
   position: relative;
   perspective: 1000px;
 
+  &:hover {
+    transform: translateY(-0.1em);
+  }
+  
   .front.flipped {
     z-index: 1;
     transform: rotateY(180deg);
@@ -40,6 +44,7 @@ export const FrontImg = styled.img<Props>`
 export const BackImg = styled.img<Props>`
   ${sharedStyles}
 
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   position: absolute;
   top: 40px;
   z-index: ${props => (props.flipped ? 1 : 2)};

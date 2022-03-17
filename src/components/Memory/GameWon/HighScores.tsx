@@ -27,9 +27,18 @@ const HighScores: React.FC<Props> = ({closeScores, level, clicks}) => {
         getScoresFromDB();
     }, [])
 
+
+    const emptyPlayer = () => {
+        return {
+            nickname: 'unknown',
+            clicks: 100, 
+            date: Timestamp.fromDate(new Date()),
+            level: level
+          }
+    }
     const getScoresFromDB = async () => {
         const data = await getDocs(collection(db, "memory"));
-        setHighScores(data.docs.map((playerScore) => (playerScore.data().level === level ? { ...playerScore.data()} : undefined)) as Player[]);
+        setHighScores(data.docs.map((playerScore) => (playerScore.data().level === level ? { ...playerScore.data()} : emptyPlayer())) as Player[]);
     };
 
     const bestPlayers = highScores.sort((a, b) => a.clicks - b.clicks).slice(0, 10).map((player, i) => (
@@ -49,10 +58,10 @@ const HighScores: React.FC<Props> = ({closeScores, level, clicks}) => {
             <Popup>
                 <Message />
                 <Results>
-                    <p>Rank</p>
-                    <p>Player</p>
-                    <p>Clicks</p>
-                    <p>Date</p>
+                    <p><span> Rank </span></p>
+                    <p><span> Player </span></p>
+                    <p><span> Clicks </span></p>
+                    <p><span> Date </span></p>
                 </Results>
                 {bestPlayers}
                 <BlueP>You used {clicks} clicks to pair all the cards</BlueP>

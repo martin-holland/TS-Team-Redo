@@ -1,11 +1,7 @@
 import React, {useState} from 'react'
-
-
 import { FaHandRock } from 'react-icons/fa';
 import { FaHandPaper } from 'react-icons/fa';
 import { FaHandScissors } from 'react-icons/fa'
-
-import  Navbar from "./Navbar"
 
 export default function RockPaperScissors() {
 
