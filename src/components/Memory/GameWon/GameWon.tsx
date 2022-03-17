@@ -1,6 +1,5 @@
-import React, { useEffect, useState}  from "react";
+import React, { useState}  from "react";
 import { Popup, Overlay } from "./GameWon.styles";
-// import { db } from "../firebase.js";
 import { collection, addDoc, Timestamp } from "firebase/firestore";
 import { db } from "../firebase";
 
@@ -8,42 +7,33 @@ import { db } from "../firebase";
 type Props = {
     turnsUsed: number;
     closePopup(): void;
+    level: string;
 }
 
-export const GameWon: React.FC<Props> = ({turnsUsed, closePopup}) => {
+export const GameWon: React.FC<Props> = ({turnsUsed, closePopup, level}) => {
     const [player, setPlayer] = useState("");
 
-    const closeOnEscapeKeyDown = (e: KeyboardEvent) => {
-        if (e.key === 'Esc' ) {
-            closePopup();
-        }
-    }
-
-    useEffect(() => {
-        document.body.addEventListener('keydown', closeOnEscapeKeyDown)
-    }, [])
-
     const Message = () =>  {
-        if (turnsUsed> 18) {
-            return <p>It took you a while! You don't know your REACT mates very well... </p>;
-        } else if (turnsUsed > 6) {
-            return <p>You are so agile. Individuals and interactions over processes and tools. </p>;
+        if (turnsUsed > 30) {
+            return <p>It took you a while! You don't remember your REACT21 mates very well... </p>;
+        } else if (turnsUsed > 8) {
+            return <p>On you way to get very agile... </p>;
         } else {
             return <p>You are so agile. Individuals and interactions over processes and tools. </p>
         }
     }
 
     const scoreHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        // e.preventDefault();
         addScoreToDB();
         closePopup();
     }
 
     const addScoreToDB = async () => {
-        await addDoc(collection(db, "speedgame"), {
-          player: player,
+        await addDoc(collection(db, "memory"), {
+          nickname: player,
           clicks: turnsUsed, 
           date: Timestamp.fromDate(new Date()),
+          level: level
         });
     };
 
@@ -60,7 +50,7 @@ export const GameWon: React.FC<Props> = ({turnsUsed, closePopup}) => {
                 <h1>YOU DID IT!</h1>
                 <p>You used {turnsUsed} clicks to match all cards</p>
                 <Message />
-                <div className="input_button">
+                <div>
                     <input type="text" className="player" placeholder="Nickname" required onChange={nickHandler}/>
                     <button className="score_button" onClick={scoreHandler}>SAVE</button>
                     <button className="close" onClick={closePopup}>CLOSE</button>

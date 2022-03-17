@@ -5,16 +5,20 @@ import { shuffleArray } from './utils';
 import { CardType } from './setup';
 import { Flex } from './Memory.styles';
 import { GameWon } from './GameWon/GameWon';
+import HighScores from './GameWon/HighScores';
 
+
+const defaultCardAmount = 3;
 
 const Memory: React.FC = () => {
-  // console.log(createBoard());
-  const [cards, setCards] = useState<CardType[]>(shuffleArray(createBoard(3)));
-  const [gameWon, setGameWon] = useState(false);
-  const [matchedPairs, setMatchedPairs] = useState(0);
+  const [cards, setCards] = useState<CardType[]>(shuffleArray(createBoard(defaultCardAmount)));
+  const [gameWon, setGameWon] = useState<boolean>(false);
+  const [showScores, setShowScores] = useState<boolean>(false);
+  const [matchedPairs, setMatchedPairs] = useState<number>(0);
   const [clickedCard, setClickedCard] = useState<undefined | CardType>(undefined);
-  const [turns, setTurns] = useState(0);
-  const [cardsNumber, setCardsNumber] = useState(6);
+  const [turns, setTurns] = useState<number>(0);
+  const [cardsNumber, setCardsNumber] = useState<number>(defaultCardAmount);
+  const [level, setLevel] = useState<string>('easy');
 
   
   useEffect(() => {
@@ -22,9 +26,10 @@ const Memory: React.FC = () => {
       setTimeout(() => {
         setGameWon(true);
       }, 1400);
-    }
-  //eslint-disable-next-line
-  }, [matchedPairs])
+    };
+
+    
+  }, [matchedPairs, cards, cardsNumber, level])
 
 
   const handleCardClick = (currentClickedCard: CardType) => {
@@ -60,15 +65,28 @@ const Memory: React.FC = () => {
 
   const closePopupHandler = () => {
     setGameWon(false);
-    setCards(cards => cards.map(card => card ? {...card, flipped: false, clickable: true} : card));
-    setTurns(0);
-    setMatchedPairs(0);
-    newGame(cardsNumber);
+    setShowScores(true);
   }
 
-  const newGame = (cards: number) => {
-    setCardsNumber(cards);
-    setCards(shuffleArray(createBoard(cards)));
+  const closeScoresHandler = () => {
+    setTurns(0);
+    setMatchedPairs(0);
+    setShowScores(false);
+    setCards(shuffleArray(createBoard(cardsNumber)));
+  }
+
+  const setNewLevel = (cards: number) => {
+      // temp const to get it right away or re-render wont happen. Update of the cardsstate does not happen inside this function
+      const cardsNow = cards;
+      setCardsNumber(cards);
+      if (cards === 3) {
+        setLevel('easy');
+      } else if (cards === 6) {
+        setLevel('medium');
+      } else if (cards === 12) {
+        setLevel('hard');
+      }
+      setCards(shuffleArray(createBoard(cardsNow)));
   }
 
   return (
@@ -76,15 +94,16 @@ const Memory: React.FC = () => {
         <h1>
           REACT21 Memory Game
         </h1>
-        <button onClick={() => newGame(3)}>EASY</button>
-        <button onClick={() => newGame(9)}>MEDIUM</button>
-        <button onClick={() => newGame(12)}>HARD</button>
+        <button onClick={() => setNewLevel(3)}>EASY</button>
+        <button onClick={() => setNewLevel(6)}>MEDIUM</button>
+        <button onClick={() => setNewLevel(12)}>HARD</button>
           <Flex>
             {cards.map(card => (
               <Card key={card.id} card={card} callback={handleCardClick}></Card>
             ))}
           </Flex>
-          {gameWon && <GameWon turnsUsed={turns} closePopup={closePopupHandler}/>}
+          {gameWon && <GameWon turnsUsed={turns} closePopup={closePopupHandler} level={level}/>}
+          {showScores && <HighScores closeScores={closeScoresHandler} level={level} clicks={turns}/>}
       </div>
   );
 }

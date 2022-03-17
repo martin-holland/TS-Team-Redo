@@ -24,7 +24,6 @@ export type CardType = {
 }
 
 const cards: string[] = [card1, card2, card3, card4, card5, card6, card7, card8, card9, card10, card11, card12];
-// const cards: string[] = [card1, card2];
 
 export const createBoard = (pairs: number): CardType[] => 
     {   const shuffledSliced = shuffleArray(cards).slice(0, pairs);
